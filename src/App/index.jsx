@@ -1,5 +1,14 @@
 import React from 'react';
 
-const App = () =><h1>Movie Browser</h1>;
+import MovieList from '../MovieList';
+
+const App = () =>{
+  return(
+      <div>
+        <h1>Movie Browser</h1>
+        <MovieList />
+      </div>
+  );
+};
 
 export default App;

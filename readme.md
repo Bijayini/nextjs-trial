@@ -1,5 +1,4 @@
-#ABOUT
-Movie Search Example
+## Movie Search Example
 
 
 ```

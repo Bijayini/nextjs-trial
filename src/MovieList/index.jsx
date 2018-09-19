@@ -1,5 +1,7 @@
 import React from 'react';
 
+import MovieCard from '../MovieCard';
+
 const movies = [
   {
     id: 78,
@@ -58,6 +60,13 @@ const movies = [
   }
 ];
 
-const MovieList = () => <p>Create your movie list using the list given</p>;
+const MovieList = () => {
+  return(
+      <ul>
+        {movies.map( movie => <MovieCard movie={movie}/> )}
+      </ul>
+  );
+};
+
 
 export default MovieList;

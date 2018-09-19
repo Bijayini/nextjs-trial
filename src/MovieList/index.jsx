@@ -60,10 +60,23 @@ const movies = [
   }
 ];
 
-const MovieList = () => {
+const getMovieListSortedByParam = (sortingParam) => movies.sort((movie1, movie2) => {
+  const firstMovie = movie1[sortingParam].toLowerCase();
+  const secondMovie = movie2[sortingParam].toLowerCase();
+
+  return (firstMovie > secondMovie) ? 1 : ((secondMovie > firstMovie) ? -1 : 0);
+});
+
+const getSortedMovieList = (sortingParam)=> {
+   return sortingParam !== '' ? getMovieListSortedByParam(sortingParam): movies;
+}
+
+const MovieList = (props) => {
+  const sortedMovieList = getSortedMovieList(props.sortingParam);
+
   return(
       <ul>
-        {movies.map( movie => <MovieCard movie={movie}/> )}
+        {sortedMovieList.map( movie => <MovieCard movie={movie}/> )}
       </ul>
   );
 };

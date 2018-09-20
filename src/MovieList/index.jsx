@@ -60,26 +60,38 @@ const movies = [
   }
 ];
 
-const getMovieListSortedByParam = (sortingParam) => movies.sort((movie1, movie2) => {
-  const firstMovie = movie1[sortingParam].toLowerCase();
-  const secondMovie = movie2[sortingParam].toLowerCase();
-
-  return (firstMovie > secondMovie) ? 1 : ((secondMovie > firstMovie) ? -1 : 0);
-});
-
-const getSortedMovieList = (sortingParam)=> {
-   return sortingParam !== '' ? getMovieListSortedByParam(sortingParam): movies;
+export default class MovieList extends React.Component{
+constructor(props){
+  super(props);
 }
+  componentDidMount(){
+      console.log('Hi I have mounted the component');
+  };
 
-const MovieList = (props) => {
-  const sortedMovieList = getSortedMovieList(props.sortingParam);
 
-  return(
-      <ul>
-        {movies.map( movie => <MovieCard movie={movie} key={movie.id}/> )}
-      </ul>
-  );
+  getMovieListSortedByParam = () => {
+    const {sortingParam} = this.props;
+
+    return( movies.sort((movie1, movie2) => {
+      const firstMovie = movie1[sortingParam].toLowerCase();
+      const secondMovie = movie2[sortingParam].toLowerCase();
+      return (firstMovie > secondMovie) ? 1 : ((secondMovie > firstMovie) ? -1 : 0);
+    }));
+ };
+
+   getSortedMovieList = () => {
+     const { sortingParam } = this.props;
+
+     return sortingParam !== '' ? this.getMovieListSortedByParam(): movies;
+  };
+
+
+  render(){
+    console.log('Yeah!!! I am inside render');
+    return(
+        <ul>
+          {this.getSortedMovieList().map( movie => <MovieCard movie={movie} key={movie.id} /> )}
+        </ul>
+    );
+  }
 };
-
-
-export default MovieList;

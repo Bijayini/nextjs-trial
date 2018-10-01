@@ -1,7 +1,10 @@
 import React from 'react';
 
-import MovieList from '../MovieList';
-import SortingDropDown from '../sortingDropDown';
+import dynamic from 'next/dynamic';
+
+const DynamicMovieList = dynamic(() => import('../MovieList'))
+
+const DynamicSortingDropDown = dynamic(() => import('../sortingDropDown'));
 
 export default class App extends React.Component {
   constructor(props) {
@@ -19,10 +22,10 @@ export default class App extends React.Component {
       <div className="container-left">
         <div className="list-header">
           <h1>Movie Browser</h1>
-          <SortingDropDown selectedValue={this.state.sortingParam}
+          <DynamicSortingDropDown selectedValue={this.state.sortingParam}
                            handleChange={this.handleChange} />
         </div>
-        <MovieList sortingParam={this.state.sortingParam} />
+        <DynamicMovieList sortingParam={this.state.sortingParam} />
       </div>
     );
   }

@@ -25,7 +25,7 @@ export default class App extends React.Component {
           <DynamicSortingDropDown selectedValue={this.state.sortingParam}
                            handleChange={this.handleChange} />
         </div>
-        <DynamicMovieList sortingParam={this.state.sortingParam} />
+        <DynamicMovieList sortingParam={this.state.sortingParam} {...this.props.movies} />
       </div>
     );
   }

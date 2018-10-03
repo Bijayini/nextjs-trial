@@ -3,28 +3,12 @@ import {isEqual, uniqBy} from 'lodash';
 
 import MovieCard from '../MovieCard';
 
-const url = 'https://api.myjson.com/bins/13r402';
 
 
 export default class MovieList extends React.Component{
-constructor(props){
-  super(props);
-  this.state={
-    movies:[]
-  }
-}
 
-  componentDidMount(){
-    console.log('Hi I have Mounted the component');
-
-    fetch(url).then(results => results.json())
-    .then(data => this.setState({ movies: uniqBy(data.movies, 'title')}));
-  };
-
-
-  getMovieListSortedByParam = () => {
+  getMovieListSortedByParam = (movies) => {
     const {sortingParam} = this.props;
-    const {movies} = this.state;
 
     return( movies.sort((movie1, movie2) => {
       const firstMovie = movie1[sortingParam].toLowerCase();
@@ -33,21 +17,22 @@ constructor(props){
     }));
  };
 
-   getSortedMovieList = () => {
+   getSortedMovieList = (movies) => {
      const { sortingParam } = this.props;
 
-     return sortingParam !== '' ? this.getMovieListSortedByParam(): this.state.movies;
+     return sortingParam !== '' ? this.getMovieListSortedByParam(movies): movies;
   };
 
 
   render(){
     console.log('Yeah!!! I am inside render');
-    const {movies} = this.state;
-    
+    const {movies} = this.props;
+    const uniqMovies = uniqBy(movies, 'title');
+
     return(
         <ul>
-          {movies.length > 0 && this.getSortedMovieList().map( movie => <MovieCard movie={movie} key={movie.title} /> )}
+          {uniqMovies.length > 0 && this.getSortedMovieList(uniqMovies).map( movie => <MovieCard movie={movie} key={movie.title} /> )}
         </ul>
     );
-  }
-};
+  };
+}
